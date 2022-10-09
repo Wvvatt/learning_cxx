@@ -5,16 +5,19 @@ DEP_LIB=-L./libs -pthread -lm
 
 SOURCE = $(wildcard *.cc)
 OBJS = $(patsubst %.cc,%.o,${SOURCE})
-TARGET = $(patsubst %.o,%,${OBJS})
+TARGETS = $(patsubst %.o,%,${OBJS})
 
-all:${TARGET}
+$(info $(OBJS))
+$(info $(TARGETS))
 
-${TARGET}:${OBJS}
-	$(CXX) $^ $(FLAG) $(DEP_LIB) -o $@
+all:${TARGETS}
+
+${TARGETS}:${OBJS}
+	$(CXX) $(FLAG) $(DEP_LIB) -o $@ $<
 
 %.o:%.cc
-	$(CXX) $(FLAG) $(DEP_INCLUDE) -c $< -o $@
+	$(CXX) $(FLAG) $(DEP_INCLUDE) -c -o $@ $<
 
 .PHONY:clean
 clean:
-	rm -rf *.o $(TARGET)
+	rm -rf *.o $(TARGETS) backtrace
