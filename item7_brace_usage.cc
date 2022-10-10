@@ -35,9 +35,9 @@ int main()
     Window win2{1,2};       //using initializer cstor
 
     Widget w1(10, true);
-    Widget w2{10, true};
+    Widget w2{10, true};    // cannot convert to initializer
     Widget w3(10, 5.0);
-    Widget w4{10, 5.0};
+    Widget w4{10, 5.0};     // cannot convert
 
     Box box{10, 30, 22.3};
     box.print();
@@ -50,7 +50,7 @@ int main()
         3、通用的初始化
 
     作为类库作者：
-        1、initializer_list函数会直接改过其他重载函数；
+        1、initializer_list函数会直接盖过其他重载函数；
         2、给一个类添加一个initializer_list构造函数，可能会导致已有的{}构造变为不想要的情况；
 
     作为类库使用者：
