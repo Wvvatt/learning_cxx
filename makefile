@@ -12,7 +12,7 @@ $(info $(TARGETS))
 
 all:${TARGETS}
 
-${TARGETS}:${OBJS}
+${TARGETS}:%:%.o
 	$(CXX) $(FLAG) $(DEP_LIB) -o $@ $<
 
 %.o:%.cc
