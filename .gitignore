@@ -1,0 +1,4 @@
+*
+!*.cc
+!makefile
+!includes
