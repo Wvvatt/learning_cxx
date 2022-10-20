@@ -2,3 +2,4 @@
 !*.cc
 !makefile
 !includes
+!*.md
