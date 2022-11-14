@@ -10,12 +10,13 @@ long fibonacci(unsigned n)
  
 int main()
 {
+// system_clock 
     // 声明系统时间time_point
     const std::chrono::time_point<std::chrono::system_clock> p0 = std::chrono::time_point<std::chrono::system_clock>{};       
     const auto p1 = std::chrono::system_clock::now();
     const auto p2 = p1 - std::chrono::hours(24);
     
-    // 转换成c的time_t
+    // 转换成c的time_t，只有system_clock有
     std::time_t epoch_time = std::chrono::system_clock::to_time_t(p0);
     std::cout << "epoch(unix时间戳开始的时间): " << std::ctime(&epoch_time);
     std::time_t today_time = std::chrono::system_clock::to_time_t(p1);
@@ -26,6 +27,7 @@ int main()
     std::cout << "hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p1.time_since_epoch()).count() << " h\n";
     std::cout << "yesterday, hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p2.time_since_epoch()).count() << " h\n";
 
+// steady_clock
     // 验证steady_time不会随着系统时间的变化而变化
     const auto start = std::chrono::steady_clock::now();
     uint32_t count = 0;
