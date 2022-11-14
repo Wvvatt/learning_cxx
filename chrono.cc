@@ -2,6 +2,12 @@
 #include <chrono>
 using namespace std;
 
+long fibonacci(unsigned n)
+{
+    if (n < 2) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+ 
 int main()
 {
     // time_since_epoch()获得一个duration，表示unix时间戳，即从1970-1-1 00:00:00到现在的时间
@@ -20,5 +26,11 @@ int main()
     std::cout << "hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p1.time_since_epoch()).count() << " h\n";
     std::cout << "yesterday, hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p2.time_since_epoch()).count() << " h\n";
 
-
+    const auto start = std::chrono::steady_clock::now();
+    uint32_t count = 0;
+    while(1){
+        std::cout << "fibonacci(42) = " << fibonacci(42) << std::endl;
+        auto end = std::chrono::steady_clock::now();
+        std::cout << "fibonacci " << count++ << " cost time = " << std::chrono::duration_cast<std::chrono::seconds>(end-start).count() << " (seconds)\n";
+    }
 }
