@@ -30,6 +30,7 @@ int main()
 // steady_clock，起点一般是系统启动时间
     // 验证steady_time不会随着系统时间的变化而变化
     const auto start = std::chrono::steady_clock::now();
+    std::cout << "time since epoch(boot time) = " << std::chrono::duration_cast<std::chrono::seconds>(start.time_since_epoch()).count() << std::endl;
     uint32_t count = 0;
     while(1){
         std::cout << "fibonacci(42) = " << fibonacci(42) << std::endl;
