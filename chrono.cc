@@ -10,7 +10,7 @@ long fibonacci(unsigned n)
  
 int main()
 {
-    //system_clock，起点是unix时间戳的起点
+//system_clock，起点是unix时间戳的起点
     std::cout << "====== system clock ======\n";
     // 声明系统时间time_point
     const std::chrono::time_point<std::chrono::system_clock> epoch_sys{};       
@@ -28,7 +28,7 @@ int main()
     std::cout << "hours since epoch : " << std::chrono::duration_cast<std::chrono::hours>(p1.time_since_epoch()).count() << " h\n";
     std::cout << "yesterday, hours since epoch : " << std::chrono::duration_cast<std::chrono::hours>(p2.time_since_epoch()).count() << " h\n";
 
-    // steady_clock，起点一般是系统启动时间
+// steady_clock，起点一般是系统启动时间
     std::cout << "====== steady clock ======\n";
     const std::chrono::time_point<std::chrono::steady_clock> epoch_steady{};
     const auto start = std::chrono::steady_clock::now();
