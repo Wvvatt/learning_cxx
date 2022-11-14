@@ -26,6 +26,7 @@ int main()
     std::cout << "hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p1.time_since_epoch()).count() << " h\n";
     std::cout << "yesterday, hours since epoch: " << std::chrono::duration_cast<std::chrono::hours>(p2.time_since_epoch()).count() << " h\n";
 
+    // 验证steady_time不会随着系统时间的变化而变化
     const auto start = std::chrono::steady_clock::now();
     uint32_t count = 0;
     while(1){
