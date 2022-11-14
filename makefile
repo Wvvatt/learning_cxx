@@ -12,11 +12,11 @@ $(info $(TARGETS))
 
 all:${TARGETS}
 
-${TARGETS}:%:%.o
-	$(CXX) $(FLAG) $(DEP_LIB) -o $@ $<
+${TARGETS}:%:%.cc
+	$(CXX) $(FLAG) $(DEP_INCLUDE) $(DEP_LIB) -o $@ $<
 
-%.o:%.cc
-	$(CXX) $(FLAG) $(DEP_INCLUDE) -c -o $@ $<
+# %.o:%.cc
+# 	$(CXX) $(FLAG)  -c -o $@ $<
 
 .PHONY:clean
 clean:
