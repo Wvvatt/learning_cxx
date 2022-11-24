@@ -3,3 +3,5 @@
 !makefile
 !includes
 !*.md
+!.vscode
+!.vscode/*
