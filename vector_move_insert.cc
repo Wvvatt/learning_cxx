@@ -49,6 +49,35 @@ private:
 
 int main()
 {
+    // std::vector<int> new_vec {1, 2};
+    // auto print_v = [&new_vec](std::vector<int> &tail_vec){
+    //     std::cout << "the lhs one is: ";
+    //     for(auto &&ele : new_vec){
+    //         std::cout << ele << " ";
+    //     }    
+    //     std::cout << "after append, the rhs one is: ";
+    //     for(auto &&ele : tail_vec){
+    //         std::cout << ele << " ";
+    //     }
+    //     std::cout << std::endl;
+    // };
+
+    // std::vector<int> copy_vec {3, 4};
+    // new_vec.insert(new_vec.end(), copy_vec.begin(), copy_vec.end());
+    // print_v(copy_vec);
+
+    // std::vector<int> move_vec {33, 44};
+    // new_vec.reserve(7);
+    // std::cout << "reserve finished\n";
+    // new_vec.insert(new_vec.end(), std::make_move_iterator(move_vec.begin()), std::make_move_iterator(move_vec.end()));
+    // print_v(move_vec);
+
+/*
+    - 只能使vector的每个元素在insert时发生拷贝。
+    - swap的作用是交换两个容器的内容，不针对单个元素执行move、copy、swap操作。
+    - 无法将整个vector的内容移动到另一个vector后面。
+*/
+    
     std::vector<Test> new_vec {1};
     new_vec.emplace_back(2);
     auto print_v = [&new_vec](std::vector<Test> &tail_vec){
@@ -71,5 +100,6 @@ int main()
     std::cout << "reserve finished\n";
     new_vec.insert(new_vec.end(), std::make_move_iterator(move_vec.begin()), std::make_move_iterator(move_vec.end()));
     print_v(move_vec);
+
     return 0;
 }
