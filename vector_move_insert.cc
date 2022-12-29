@@ -21,6 +21,7 @@ public:
         std::cout << "copy operator " << *rhs.data_ << " \n";
         data_ = new int();
         *data_ = *rhs.data_;
+        return *this;
     }
     Test(Test &&rhs){
         std::cout << "move construct " << *rhs.data_ << " \n";
@@ -31,6 +32,7 @@ public:
         std::cout << "move operator " << *rhs.data_ << " \n";
         data_ = rhs.data_;
         rhs.data_ = nullptr;
+        return *this;
     }
     ~Test(){
         delete data_;
