@@ -1,5 +1,11 @@
 {
     "files.associations": {
+        "*.json.liquid": "json",
+        "*.yaml.liquid": "yaml",
+        "*.md.liquid": "markdown",
+        "*.js.liquid": "liquid-javascript",
+        "*.css.liquid": "liquid-css",
+        "*.scss.liquid": "liquid-scss",
         "chrono": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -50,6 +56,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "thread": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "cstring": "cpp",
+        "map": "cpp",
+        "cinttypes": "cpp"
     }
 }
