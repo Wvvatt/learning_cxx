@@ -102,7 +102,7 @@ int main()
     std::cout << "queue------ \n";
     std::cout << "raii no move : \n";
     q1.emplace();
-    q1.emplace(RaiiNoMove());
+    q1.emplace(RaiiNoMove());   // 退化为push，产生拷贝
     q1.push(RaiiNoMove());
 
     std::queue<RaiiWithMove> q2;
