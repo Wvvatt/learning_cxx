@@ -2,6 +2,10 @@
 #include <iostream>
 #include <unordered_map>
 
+/*
+    构建RAII类来管理资源，需要注意深浅拷贝的问题，不然容易引发double free.
+*/
+
 class RaiiNoMove
 {
 public:
