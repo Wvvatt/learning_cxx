@@ -3,7 +3,7 @@ FLAG=-std=c++11 -g -Wall
 DEP_INCLUDE=-I./includes
 DEP_LIB=-L./libs -pthread -lm 
 
-SOURCE = $(wildcard *.cc)
+SOURCE = $(shell find . -name '*.cc')
 OBJS = $(patsubst %.cc,%.o,${SOURCE})
 TARGETS = $(patsubst %.o,%,${OBJS})
 
