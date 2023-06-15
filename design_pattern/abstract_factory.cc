@@ -47,7 +47,7 @@ class Hwatch : public Watch
 {
 public:
     void Time() override {
-        std::cout << "it's china time\n";
+        std::cout << "it's China time\n";
     }
 };
 
@@ -100,7 +100,7 @@ int main()
     test(apple);
     delete apple;
 
-    std::cout << "----- apple factory -----\n";
+    std::cout << "----- hw factory -----\n";
     Factory *huawei = new HuaweiFactory();
     test(huawei);
     delete huawei;
