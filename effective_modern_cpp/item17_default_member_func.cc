@@ -36,9 +36,9 @@ public:
 class TheBigThree
 {
 public:
-    ~TheBigThree();
-    TheBigThree(const TheBigThree& rhs);
-    TheBigThree& operator=(const TheBigThree& rhs);
+    ~TheBigThree() = default;
+    TheBigThree(const TheBigThree& rhs) = default;
+    TheBigThree& operator=(const TheBigThree& rhs) = default;
 };
 
 // 多态基类的样式，big three是必须的
@@ -57,17 +57,25 @@ public:
 class NoMove        // 声明了析构和拷贝，没有移动了
 {
 public:
-    NoMove() {};
+    NoMove() { std::cout << "NoMove construct\n";};
     ~NoMove() { std::cout << "NoMove destruct\n";};
-    NoMove(const NoMove& rhs) { std::cout << "copy construct\n";};
+    NoMove(const NoMove& rhs) { std::cout << "NoMove copy construct\n";};
+    NoMove &operator=(const NoMove& rhs) { 
+        std::cout << "copy =\n";
+        return *this;
+    };
 };
 
 class Movable       // 声明了移动，不再有默认拷贝
 {
 public:
-    Movable() {};
+    Movable() { std::cout << "Movable construct\n"; };
     ~Movable() { std::cout << "Movable destruct\n";};
-    Movable(Movable&& rhs) { std::cout << "move construct\n";};
+    Movable(Movable&& rhs) { std::cout << "Movable move construct\n";};
+    Movable &operator=(Movable&& rhs) {
+        std::cout << "move =\n";
+        return *this;
+    };
 };
 
 class Null
@@ -77,16 +85,22 @@ class Null
 
 int main()
 {
-    NoMove t1;
-    NoMove t2(std::move(t1));       // copy construct 
-    NoMove t3;              
-    t3 = t1;            // copy=
-    t3 = std::move(t1); // copy=
-
-    Movable mv1;
+    NoMove t1;                      // construct
+    NoMove t2_1(t1);                // copy construct 
+    NoMove t2_2(std::move(t1));     // copy construct, because without default move construct       
+    NoMove t3 = t1;                 // transfer to copy construct
+    NoMove t4;                      // construct
+    t4 = t1;                        // copy=
+    t4 = std::move(t1);             // copy=
+    std::cout << "------\n";
+    Movable mv1;                    // construct
     Movable mv2(std::move(mv1));    // move construct
-    //Movable mv3(mv1); // error
-
+    //Movable mv3(mv1);             // error, because without copy construct
+    Movable mv3 = std::move(mv2);   // move construct
+    Movable mv4;
+    //mv4 = std::move(mv3);         // error, because without copy=
+    mv4 = std::move(mv3);
+    std::cout << "------\n";
     Null nl1;
     Null nl2(nl1);
     Null nl3(std::move(nl1));
