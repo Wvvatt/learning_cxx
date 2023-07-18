@@ -17,87 +17,182 @@
         ——向组件添加职责。
 
     适合对一个类进行多层装饰，Decorator的作用是提供一个对具体对象进行装饰的方法实现，同时复用接口。
-    为什么装饰器要继承基类？只有这样才能无限的进行装饰层的嵌套，不然装饰器只能传入待装饰对象，而无法传入已装饰对象。
+
+    装饰器的特点：拥有一个基类成员，同时自己也继承自基类。有点类似于积木，自己有一个榫，有一个卯，可以插在一起。
+            __________                   __________
+            |        |                   |        |
+            |__      |__                 |__      |__
+            __|      __|       --->      __|      __|
+            |        |                   |        |
+            |________|                   |________|
     装饰器模式最大的特点就是可以无限装饰，自由组合。
 */
 
 
 /*
-    以下例子以RPG游戏中的玩家角色为例，可携带的装备数无限，能够自由组合
-    角色类型：soldier, mage
-    武器装备：sword, shield, spear
+    以下例子是ffmpeg中URLProtocol结构的变体。
+    传输层协议tcp、udp是基底，通过装饰可以完成最上层协议的功能。
 */
-class PlayerBase
+static void print_split(const std::string &name)
+{
+    std::cout << "--------------\n";
+    std::cout << "---  " << name << "  ---\n";
+    std::cout << "--------------\n";
+}
+
+class UrlProtocol
 {
 public:
-    virtual void play() = 0;
+    virtual void url_open() = 0;
+    virtual void url_read() = 0;
+    virtual void url_close() = 0;
 };
 
-class Soldier : public PlayerBase
+class TcpProtocol : public UrlProtocol
 {
 public:
-    Soldier() : name_("soldier"){};
-    virtual void play() override{
-         std::cout << "\nI am a " << name_ << " ";
-    };
+    void url_open() override {
+        std::cout << "tcp open\n";
+    }
+    void url_read() override {
+        std::cout << "tcp read\n";
+    }
+    void url_close() override{
+        std::cout << "tcp close\n";
+    }
+};
+
+class UdpProtocol : public UrlProtocol
+{
+public:
+    void url_open() override {
+        std::cout << "udp open\n";
+    }
+    void url_read() override {
+        std::cout << "udp read\n";
+    }
+    void url_close() override{
+        std::cout << "udp close\n";
+    }
+};
+
+// 协议装饰器
+class ProtDecorator : public UrlProtocol
+{
+public:
+    ProtDecorator(UrlProtocol *component) : component_(component){}
+    void url_open() override {
+        component_->url_open();
+    }
+    void url_read() override {
+        component_->url_read();
+    }
+    void url_close() override {
+        component_->url_close();
+    }
 private:
-    std::string name_;
-};
+    UrlProtocol *component_;    
+};  
 
-class Mage : public PlayerBase
+class RtmpProtocol : public ProtDecorator
 {
 public:
-    Mage() : name_("mage"){};
-    virtual void play() override{
-         std::cout << "\nI am a " << name_ << " ";
-    };
+    RtmpProtocol(UrlProtocol *component) : ProtDecorator(component){};
+    void url_open() override {
+        ProtDecorator::url_open();
+        std::cout << "rtmp open\n";
+    }
+    void url_read() override {
+        ProtDecorator::url_read();
+        std::cout << "rtmp read\n";
+    }
+    void url_close() override{
+        ProtDecorator::url_close();
+        std::cout << "rtmp close\n";
+    }
 private:
-    std::string name_;
+    std::string name_;      
 };
 
-class Decorator : public PlayerBase
+class HttpProtocol : public ProtDecorator
 {
 public:
-    Decorator(PlayerBase *player) : player_(player){};
-    virtual void play() override {
-        player_->play();
-    };
-    
+    HttpProtocol(UrlProtocol *component) : ProtDecorator(component){};
+    void url_open() override {
+        ProtDecorator::url_open();
+        std::cout << "http open\n";
+    }
+    void url_read() override {
+        ProtDecorator::url_read();
+        std::cout << "http read\n";
+    }
+    void url_close() override{
+        ProtDecorator::url_close();
+        std::cout << "http close\n";
+    }
 private:
-    PlayerBase *player_;
+    std::string name_;      
 };
 
-class Sword : public Decorator
+class RtpProtocol : public ProtDecorator
 {
 public:
-    Sword(PlayerBase *p) : Decorator(p){};
-    virtual void play() override{
-        Decorator::play();
-        std::cout << "playing a sword\t";;
-    };
+    RtpProtocol(UrlProtocol *component) : ProtDecorator(component){};
+    void url_open() override {
+        ProtDecorator::url_open();
+        std::cout << "rtp open\n";
+    }
+    void url_read() override {
+        ProtDecorator::url_read();
+        std::cout << "rtp read\n";
+    }
+    void url_close() override{
+        ProtDecorator::url_close();
+        std::cout << "rtp close\n";
+    }
+private:
+    std::string name_;      
 };
 
-class Shield : public Decorator
+class RistProtocol : public ProtDecorator
 {
 public:
-    Shield(PlayerBase *p) : Decorator(p){};
-    virtual void play() override{
-        Decorator::play();
-        std::cout << "playing a shield\t";
-    };
+    RistProtocol(UrlProtocol *component) : ProtDecorator(component){};
+    void url_open() override {
+        ProtDecorator::url_open();
+        std::cout << "rist open\n";
+    }
+    void url_read() override {
+        ProtDecorator::url_read();
+        std::cout << "rist read\n";
+    }
+    void url_close() override{
+        ProtDecorator::url_close();
+        std::cout << "rist close\n";
+    }
+private:
+    std::string name_;      
 };
-
 
 int main()
-{
-    Soldier s;
-    Mage m;
-    Sword sword_s(&s);
-    sword_s.play();
-    Shield shield_s(&s);
-    shield_s.play();
-    Shield shield_sword_s(&sword_s);
-    shield_sword_s.play();
-    Shield shield_sword_m(&m);
-    shield_sword_m.play();
-};
+{   
+    TcpProtocol tcp;
+    print_split("rtmp");
+    RtmpProtocol rtmp(&tcp);
+    rtmp.url_open();
+    rtmp.url_read();
+    rtmp.url_close();
+
+    print_split("http");
+    HttpProtocol http(&tcp);
+    http.url_open();
+    http.url_read();
+    http.url_close();
+
+    print_split("rist");
+    RtpProtocol rtp(&tcp);
+    RistProtocol rist(&rtp);
+    rist.url_open();
+    rist.url_read();
+    rist.url_close();
+}   
