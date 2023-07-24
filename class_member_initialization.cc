@@ -22,7 +22,7 @@ private:
     // 静态整型常量作为ICEs，可以类内初始化
     static const int sc_data = 100;                     
     // 其他静态常量类内初始化需要在前面添加constexpr，只有const不行
-    static constexpr char *sc_name = "hello";     
+    static constexpr const char *sc_name = "hello";     
     static constexpr float sc_float = 200.0;      
     // 静态变量只能声明，不可以在类内初始化
     static char *s_name;                                
@@ -31,7 +31,7 @@ private:
 // 非静态成员类内初始化，相当于声明一种初始化方式，因此可以类内初始化
     const char *c_name = "hello";                    
     const int c_data = 100;                           
-    char *name = "hello";                              
+    const char *name = "hello";                              
     int data = 100;                                     
 };
 
