@@ -1,5 +1,8 @@
 #include <iostream>
-
+/*
+    当派生类生成了默认的拷贝构造/拷贝赋值操作符，执行这些函数时会调用基类的同类函数。
+    如果显式指定了，则不会默认调用，需要程序员自己调用。
+*/
 class B
 {
 public:
@@ -75,7 +78,7 @@ private:
 
 int main()
 {
-    std::cout << "Default ------\n";
+    std::cout << "------ Default\n";
     {
         std::cout << "1) construct\n";
         DDefault d1;
@@ -86,7 +89,7 @@ int main()
         d2 = d1;
         std::cout << "4) destruct\n";
     }
-    std::cout << "User Define ------\n";
+    std::cout << "------ User Define\n";
     {
         std::cout << "1) construct\n";
         D d1;
@@ -98,7 +101,7 @@ int main()
         std::cout << "4) destruct\n";
     }
 
-    std::cout << "Default operator= test ------\n";
+    std::cout << "------ Default operator= test\n";
     {
         DDefault d1;
         d1.set_base_int(200);
@@ -116,7 +119,7 @@ int main()
         std::cout << "  d2.ddef_int() " << d2.ddef_int() << std::endl;
     }
 
-    std::cout << "User Define operator= test ------\n";
+    std::cout << "------ User Define operator= test\n";
     {
         D d1;
         d1.set_base_int(200);
