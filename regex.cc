@@ -41,12 +41,13 @@ static bool fuzz_match(const std::string &src, const std::string &dst)
     std::regex rgx(src);
     return std::regex_match(dst, rgx);
 }
-// [^:]* 匹配非:的字符0次或多次
+
 int main() {
 
     std::cout << "1) ----- cpp reference example:\n";
     cppreference_example();
     std::cout << "2) ----- self test:\n";
+    // [^:]* 匹配非:的字符0次或多次
     std::string full_name = "abs_input:INPUT_0_440F_1213_QEW:record";
     std::cout << std::boolalpha << fuzz_match("abs_input:INPUT_0_440F_1213_QEW:record", full_name) << std::endl;
     std::cout << std::boolalpha << fuzz_match("[^:]*:[^:]*:record", full_name) << std::endl;
