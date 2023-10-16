@@ -54,5 +54,10 @@ int main() {
     std::cout << std::boolalpha << fuzz_match("[^:]*:INPUT_0_440F_1213_QEW:record", full_name) << std::endl;
     std::cout << std::boolalpha << fuzz_match("abs_input:[^:]*:[^:]*", full_name) << std::endl;
     std::cout << std::boolalpha << fuzz_match("abs_demuxer:[^:]*:[^:]*", full_name) << std::endl;
+
+    std::cout << "3) ----- self test:\n";
+    std::cout << std::boolalpha << fuzz_match("ff_demuxer:[^:]*", "udp_send3:output_test_0") << std::endl;
+    std::cout << std::boolalpha << fuzz_match("ff_demuxer:[^:]*", "ff_demuxer:output_test_0") << std::endl;
+
     return 0;
 }
