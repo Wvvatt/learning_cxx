@@ -110,7 +110,7 @@ static void AddMembers(MemberParameter *out,
                        Args... args)
 {
   AddMembers(out, key, member);
-  AddMembers(++out, args...);
+  AddMembers(++out, args...);   // 递归调用，自动匹配完成循环
 }
 
 static size_t FindOrEnd(std::string str, size_t start, char delimiter)
