@@ -26,6 +26,7 @@
             |        |                   |        |
             |________|                   |________|
     装饰器模式最大的特点就是可以无限装饰，自由组合。
+    装饰器虽然比继承灵活，但也有一个很大的缺陷，就是装饰后的对象无法继承component中不存在的接口，比如ConcreteComponent中独有的接口。所有的装饰对象都必须有同样的接口。
 */
 
 
@@ -43,6 +44,7 @@ static void print_split(const std::string &name)
 class UrlProtocol
 {
 public:
+    virtual ~UrlProtocol() = default;
     virtual void url_open() = 0;
     virtual void url_read() = 0;
     virtual void url_close() = 0;
@@ -81,6 +83,9 @@ class ProtDecorator : public UrlProtocol
 {
 public:
     ProtDecorator(UrlProtocol *component) : component_(component){}
+    ~ProtDecorator(){
+        delete component_;
+    }
     void url_open() override {
         component_->url_open();
     }
@@ -176,23 +181,22 @@ private:
 
 int main()
 {   
-    TcpProtocol tcp;
+    UrlProtocol *p = nullptr;
     print_split("rtmp");
-    RtmpProtocol rtmp(&tcp);
-    rtmp.url_open();
-    rtmp.url_read();
-    rtmp.url_close();
+    p = new RtmpProtocol(new TcpProtocol());
+    p->url_open();
+    p->url_read();
+    p->url_close(); 
 
     print_split("http");
-    HttpProtocol http(&tcp);
-    http.url_open();
-    http.url_read();
-    http.url_close();
-
+    p = new HttpProtocol(new TcpProtocol());
+    p->url_open();
+    p->url_read();
+    p->url_close();
+    
     print_split("rist");
-    RtpProtocol rtp(&tcp);
-    RistProtocol rist(&rtp);
-    rist.url_open();
-    rist.url_read();
-    rist.url_close();
+    p = new RistProtocol(new RtpProtocol(new TcpProtocol()));
+    p->url_open();
+    p->url_read();
+    p->url_close();
 }   
