@@ -218,6 +218,6 @@ int
 main()
 {
   ObjWithParam obj;
-  obj.Parser()->Parse(R"(flag:true,number:0,self_obj:{name:watt},arr:["one", "two"])");
+  obj.Parser()->Parse(R"(flag:true,number:0,self_obj:{name:watt},arr:["one","two"])");
   std::cout << obj.Parser()->Encode() << std::endl;
 }
