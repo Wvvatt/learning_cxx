@@ -1,5 +1,6 @@
 *
 !*.cc
+!*.h
 !makefile
 !includes
 !*.md
@@ -8,6 +9,7 @@
 !design_pattern
 !*.png
 !effective_modern_cpp
-!data_struct_reference
+!data_struct_reference/
+!data_struct_reference/enumstring*
 !readme.txt
 !metaprogramming

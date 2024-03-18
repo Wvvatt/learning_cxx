@@ -1,5 +1,5 @@
 CXX=g++
-FLAG=-std=c++11 -g -Wall
+FLAG=-std=c++17 -g -Wall
 DEP_INCLUDE=-I./includes
 DEP_LIB=-L./libs -pthread -lm 
 

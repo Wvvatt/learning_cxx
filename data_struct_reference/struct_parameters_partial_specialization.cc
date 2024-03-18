@@ -4,6 +4,10 @@
 #include <vector>
 #include <sstream>
 
+/*
+  partial spacialisztion；部分特化
+*/
+
 template <typename T>
 std::unique_ptr<T> WrapUnique(T *ptr)
 {
